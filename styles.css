@@ -1,0 +1,48 @@
+body {
+  font-family: sans-serif;
+  text-align: center;
+  background: #fff0f5;
+}
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  max-width: 600px;
+  margin: 20px auto;
+}
+.day {
+  background: #ffe4e1;
+  padding: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.day.locked {
+  background: #ddd;
+  cursor: not-allowed;
+}
+.day:hover:not(.locked) {
+  background: #ffb6c1;
+}
+.modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal.hidden {
+  display: none;
+}
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+}
+.close {
+  float: right;
+  cursor: pointer;
+  font-size: 20px;
+}
