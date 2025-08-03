@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday Month!</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>🎉 Happy Birthday Month! 🎂</h1>
+  <audio id="bg-music" controls autoplay loop>
+    <source src="audio/sample.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+  <div class="calendar" id="calendar"></div>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <span id="close" class="close">&times;</span>
+      <img id="messageImage" src="" alt="" style="max-width: 100%; border-radius: 10px;"><br>
+      <p id="messageText"></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
