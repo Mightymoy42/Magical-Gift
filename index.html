@@ -13,29 +13,25 @@
       padding: 0;
     }
 
+    /* Make gift-wrapper positioned and on top */
     #gift-wrapper {
+      position: relative;
+      z-index: 10; /* Make sure gift is above other elements */
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       transition: opacity 1s ease;
-      position: relative;
-      z-index: 5;
     }
 
-    #gift-wrapper {
-  position: relative;
-  z-index: 10; /* ensure it's above other elements */
-}
+    #gift {
+      width: 150px;
+      cursor: pointer;
+      transition: transform 0.4s;
+      display: block;
+      margin: 0 auto;
+    }
 
-#gift {
-  width: 150px;
-  cursor: pointer;
-  transition: transform 0.4s;
-  display: block;       /* Add this to prevent weird spacing */
-  margin: 0 auto;       /* Center the gift image */
-}
-    
     #gift.clicked {
       animation: bounce 0.6s;
     }
@@ -134,9 +130,9 @@
     const title = document.getElementById("main-title");
     const audio = document.getElementById("bg-music");
 
-    // Create the birthday card image element
+    // Create birthday card element
     const card = document.createElement("img");
-    card.src = "images/birthday_card.jpg"; // Make sure this is your uploaded card image
+    card.src = "images/birthday_card.jpg"; // Make sure you uploaded this file
     card.alt = "Birthday Card";
     card.style.maxWidth = "80%";
     card.style.borderRadius = "15px";
@@ -147,11 +143,13 @@
     card.style.top = "50%";
     card.style.left = "50%";
     card.style.transform = "translate(-50%, -50%)";
-    card.style.zIndex = "10";
+    card.style.zIndex = "20";
     card.style.cursor = "pointer";
     document.body.appendChild(card);
 
+    // Add click logging to help debug
     gift.addEventListener("click", () => {
+      console.log("Gift clicked!");
       gift.classList.add("clicked");
 
       setTimeout(() => {
@@ -175,7 +173,6 @@
             }, 1000);
           };
 
-          // Click card or wait 4 seconds to proceed
           card.addEventListener("click", continueToCalendar);
           setTimeout(continueToCalendar, 4000);
         }, 1000);
