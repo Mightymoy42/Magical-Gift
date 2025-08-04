@@ -215,95 +215,103 @@
   </select>
 
   <script>
-    const gift = document.getElementById("gift");
-    const audio = document.getElementById("bg-music");
-    const calendar = document.getElementById("calendar");
-    const birthdayCard = document.getElementById("birthday-card");
-    const songSelector = document.getElementById("song-selector");
+const gift = document.getElementById("gift");
+const audio = document.getElementById("bg-music");
+const calendar = document.getElementById("calendar");
+const birthdayCard = document.getElementById("birthday-card");
+const songSelector = document.getElementById("song-selector");
 
-    const messages = {
-      1: "You make the world brighter 🌞",
-      2: "Your smile is magical ✨",
-      3: "You deserve all the happiness 💖",
-      4: "You're doing amazing 💪",
-      5: "Never forget how special you are 🌟",
-      // Add more up to 31
-    };
+// Reusable snippet audio element to avoid multiple simultaneous audios
+const snippetAudio = new Audio();
+snippetAudio.volume = 0.7;
 
-    const snippets = {
-      1: "audio/snippet1.mp3",
-      2: "audio/snippet2.mp3",
-      3: "audio/snippet3.mp3",
-      4: "audio/snippet4.mp3",
-      5: "audio/snippet5.mp3",
-      // Add more if needed
-    };
+const messages = {
+  1: "You make the world brighter 🌞",
+  2: "Your smile is magical ✨",
+  3: "You deserve all the happiness 💖",
+  4: "You're doing amazing 💪",
+  5: "Never forget how special you are 🌟",
+  // Add more up to 31
+};
 
-    const today = new Date();
-    const currentDay = today.getDate();
+const snippets = {
+  1: "audio/snippet1.mp3",
+  2: "audio/snippet2.mp3",
+  3: "audio/snippet3.mp3",
+  4: "audio/snippet4.mp3",
+  5: "audio/snippet5.mp3",
+  // Add more if needed
+};
 
-    for (let i = 1; i <= 31; i++) {
-      const day = document.createElement("div");
-      day.classList.add("day");
-      day.textContent = i;
+const today = new Date();
+const currentDay = today.getDate();
 
-      if (i <= currentDay) {
-        day.classList.add("unlocked");
-        day.addEventListener("click", () => {
-  const message = messages[i] || "You're awesome! 🎉";
-  const messageBox = document.getElementById("day-message-box");
-  const messageContent = document.getElementById("day-message-content");
+for (let i = 1; i <= 31; i++) {
+  const day = document.createElement("div");
+  day.classList.add("day");
+  day.textContent = i;
 
-  messageContent.textContent = `🎁 Message for Day ${i}: ${message}`;
-  messageBox.style.display = "block";
+  if (i <= currentDay) {
+    day.classList.add("unlocked");
+    day.addEventListener("click", () => {
+      const message = messages[i] || "You're awesome! 🎉";
+      const messageBox = document.getElementById("day-message-box");
+      const messageContent = document.getElementById("day-message-content");
 
-  if (snippets[i]) {
-    const snippetAudio = new Audio(snippets[i]);
-    snippetAudio.volume = 0.7;
-    snippetAudio.play();
+      messageContent.textContent = `🎁 Message for Day ${i}: ${message}`;
+      messageBox.style.display = "block";
+
+      if (snippets[i]) {
+        snippetAudio.pause();
+        snippetAudio.currentTime = 0;
+        snippetAudio.src = snippets[i];
+        snippetAudio.play().catch(e => console.log("Snippet play error:", e));
+      }
+    });
+  } else {
+    day.classList.add("locked");
   }
+
+  calendar.appendChild(day);
+}
+
+gift.addEventListener("click", () => {
+  gift.classList.add("bounce-out");
+  birthdayCard.style.display = "block";
+  audio.volume = 0.5;
+  audio.play().catch(e => console.log("Audio play error:", e));
+  setTimeout(() => {
+    gift.style.display = "none";
+    calendar.style.display = "block";
+  }, 3000);
 });
-      } else {
-        day.classList.add("locked");
-      }
 
-      calendar.appendChild(day);
-    }
+function switchSong(newSrc) {
+  audio.pause();
+  audio.src = newSrc;
+  audio.load();
+  audio.play().catch(e => console.log("Autoplay blocked or error:", e));
+}
 
-    gift.addEventListener("click", () => {
-      gift.classList.add("bounce-out");
-      birthdayCard.style.display = "block";
-      audio.volume = 0.5;
-      audio.play().catch(e => console.log("Audio play error:", e));
-      setTimeout(() => {
-        gift.style.display = "none";
-        calendar.style.display = "block";
-      }, 3000);
-    });
+songSelector.addEventListener("change", () => {
+  switchSong(songSelector.value);
+});
 
-    songSelector.addEventListener("change", () => {
-      const newSrc = songSelector.value;
-      audio.src = newSrc;
-      audio.load();
-      audio.play().catch((e) => {
-        console.log("Autoplay blocked or error:", e);
-      });
-    });
+function togglePlay() {
+  if (audio.paused) {
+    audio.play();
+  } else {
+    audio.pause();
+  }
+}
 
-    function togglePlay() {
-      if (audio.paused) {
-        audio.play();
-      } else {
-        audio.pause();
-      }
-    }
+function changeVolume(amount) {
+  let newVolume = audio.volume + amount;
+  newVolume = Math.min(1, Math.max(0, newVolume));
+  audio.volume = newVolume;
+  console.log("Volume:", Math.round(newVolume * 100) + "%");
+}
 
-    function changeVolume(amount) {
-      let newVolume = audio.volume + amount;
-      newVolume = Math.min(1, Math.max(0, newVolume));
-      audio.volume = newVolume;
-      console.log("Volume:", Math.round(newVolume * 100) + "%");
-    }
 
     function createStar() {
       const star = document.createElement('div');
