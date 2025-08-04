@@ -212,11 +212,14 @@ for (let i = 1; i <= 31; i++) {
       }, 3000);
     });
 
-    // Song selector change handler
-    songSelector.addEventListener("change", () => {
-      audio.src = songSelector.value;
-      audio.play();
-    });
+songSelector.addEventListener("change", () => {
+  const newSrc = songSelector.value;
+  audio.src = newSrc;
+  audio.load();
+  audio.play().catch((e) => {
+    console.log("Autoplay blocked or error:", e);
+  });
+});
 
     // Play/pause toggle
     function togglePlay() {
