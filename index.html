@@ -130,6 +130,42 @@
     const calendar = document.getElementById("calendar");
     const birthdayCard = document.getElementById("birthday-card");
     const songSelector = document.getElementById("songSelector");
+    const bgMusic = document.getElementById('bg-music');
+    
+    // Play background music on gift open or page load
+function startBackgroundMusic() {
+  bgMusic.volume = 0.5;
+  bgMusic.play().catch(e => console.log("BG music play error:", e));
+}
+
+// Snippets mapped by day (replace with your actual snippet files)
+const snippets = {
+  1: "audio/snippet1.mp3",
+  2: "audio/snippet2.mp3",
+  3: "audio/snippet3.mp3",
+  // ... up to 31
+};
+
+for (let i = 1; i <= 31; i++) {
+  const dayElement = document.createElement('div');
+  dayElement.classList.add('day');
+  dayElement.textContent = i;
+
+  if (i <= new Date().getDate()) {
+    dayElement.classList.add('unlocked');
+    dayElement.addEventListener('click', () => {
+      // Play snippet for this day
+      const snippetAudio = new Audio(snippets[i]);
+      snippetAudio.volume = 0.7;
+      snippetAudio.play();
+
+      alert(`🎶 Playing snippet for day ${i}!`);
+    });
+  } else {
+    dayElement.classList.add('locked');
+  }
+  calendar.appendChild(dayElement);
+}
 
     // Create calendar days
     for (let i = 1; i <= 31; i++) {
