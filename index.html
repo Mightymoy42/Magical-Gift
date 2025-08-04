@@ -249,6 +249,22 @@ songSelector.addEventListener("change", () => {
       audio.volume = newVolume;
       console.log("Volume:", Math.round(newVolume * 100) + "%");
     }
+    // Create falling stars
+function createStar() {
+  const star = document.createElement('div');
+  star.classList.add('star');
+  star.style.left = Math.random() * 100 + "vw";
+  star.style.animationDuration = 2 + Math.random() * 3 + "s";
+  star.style.opacity = Math.random();
+  document.body.appendChild(star);
+
+  setTimeout(() => {
+    star.remove();
+  }, 5000); // Clean up
+}
+
+setInterval(createStar, 300); // Add a star every 300ms
+
   </script>
 </body>
 </html>
