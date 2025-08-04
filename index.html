@@ -10,16 +10,19 @@
       background: #ffdee9;
       text-align: center;
       padding-top: 50px;
+      overflow-x: hidden;
     }
 
     #gift {
       width: 150px;
       cursor: pointer;
+      animation: gentleBounce 2s infinite;
       transition: transform 0.4s;
     }
 
-    #gift:hover {
-      transform: scale(1.1);
+    @keyframes gentleBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
 
     .bounce-out {
@@ -81,7 +84,7 @@
       transform: scale(1.1);
     }
 
-    #songSelector {
+    #song-selector {
       margin-top: 15px;
       font-size: 16px;
       padding: 5px 10px;
@@ -90,25 +93,25 @@
       background-color: #fff0f5;
       cursor: pointer;
     }
-    
-    .star {
-  position: fixed;
-  top: -20px;
-  width: 10px;
-  height: 10px;
-  background: white;
-  border-radius: 50%;
-  opacity: 0.8;
-  animation: fall linear infinite;
-  z-index: 0;
-}
 
-@keyframes fall {
-  to {
-    transform: translateY(100vh);
-    opacity: 0;
-  }
-}
+    .star {
+      position: fixed;
+      top: -20px;
+      width: 10px;
+      height: 10px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: fall linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
@@ -126,8 +129,8 @@
 
   <!-- Music Player -->
   <audio id="bg-music" src="audio/sugar_on_my_tongue.mp3" preload="auto" loop>
-  Your browser does not support the audio element.
-</audio>
+    Your browser does not support the audio element.
+  </audio>
 
   <div id="music-controls">
     <button onclick="togglePlay()">▶️ / ⏸️</button>
@@ -135,12 +138,11 @@
     <button onclick="changeVolume(0.1)">🔊</button>
   </div>
 
- <!-- Song selector dropdown -->
-<select id="song-selector" onchange="switchSong(this.value)">
-  <option value="audio/sugar_on_my_tongue.mp3" selected>Sugar On My Tongue</option>
-  <option value="audio/Nintendo-Mii.mp3">Nintendo Mii Theme</option>
-  <option value="audio/Fly-me-to-the-moon.mp3">Fly Me to the Moon</option>
-</select>
+  <select id="song-selector" onchange="switchSong(this.value)">
+    <option value="audio/sugar_on_my_tongue.mp3" selected>Sugar On My Tongue</option>
+    <option value="audio/Nintendo-Mii.mp3">Nintendo Mii Theme</option>
+    <option value="audio/Fly-me-to-the-moon.mp3">Fly Me to the Moon</option>
+  </select>
 
   <script>
     const gift = document.getElementById("gift");
@@ -148,92 +150,72 @@
     const calendar = document.getElementById("calendar");
     const birthdayCard = document.getElementById("birthday-card");
     const songSelector = document.getElementById("song-selector");
-    const bgMusic = document.getElementById('bg-music');
-    
-    // Play background music on gift open or page load
-function startBackgroundMusic() {
-  bgMusic.volume = 0.5;
-  bgMusic.play().catch(e => console.log("BG music play error:", e));
-}
 
-// Customize messages per day
-const messages = {
-  1: "You make the world brighter 🌞",
-  2: "Your smile is magical ✨",
-  3: "You deserve all the happiness 💖",
-  4: "You're doing amazing 💪",
-  5: "Never forget how special you are 🌟",
-  // ... Add more messages for each day up to 31
-};
+    const messages = {
+      1: "You make the world brighter 🌞",
+      2: "Your smile is magical ✨",
+      3: "You deserve all the happiness 💖",
+      4: "You're doing amazing 💪",
+      5: "Never forget how special you are 🌟",
+      // Add more up to 31
+    };
 
-// Customize snippet audio paths (if any)
-const snippets = {
-  1: "audio/snippet1.mp3",
-  2: "audio/snippet2.mp3",
-  3: "audio/snippet3.mp3",
-  4: "audio/snippet4.mp3",
-  5: "audio/snippet5.mp3",
-  // ... Add more snippets or leave some days without one
-};
+    const snippets = {
+      1: "audio/snippet1.mp3",
+      2: "audio/snippet2.mp3",
+      3: "audio/snippet3.mp3",
+      4: "audio/snippet4.mp3",
+      5: "audio/snippet5.mp3",
+      // Add more if needed
+    };
 
-// Create merged calendar
-const today = new Date();
-const currentDay = today.getDate();
+    const today = new Date();
+    const currentDay = today.getDate();
 
-for (let i = 1; i <= 31; i++) {
-  const day = document.createElement("div");
-  day.classList.add("day");
-  day.textContent = i;
+    for (let i = 1; i <= 31; i++) {
+      const day = document.createElement("div");
+      day.classList.add("day");
+      day.textContent = i;
 
-  if (i <= currentDay) {
-    day.classList.add("unlocked");
+      if (i <= currentDay) {
+        day.classList.add("unlocked");
+        day.addEventListener("click", () => {
+          const message = messages[i] || "You're awesome! 🎉";
+          alert(`🎁 Message for Day ${i}: ${message}`);
 
-    day.addEventListener("click", () => {
-      const message = messages[i] || "You're awesome! 🎉";
-      alert(`🎁 Message for Day ${i}: ${message}`);
-
-      if (snippets[i]) {
-        const snippetAudio = new Audio(snippets[i]);
-        snippetAudio.volume = 0.7;
-        snippetAudio.play();
+          if (snippets[i]) {
+            const snippetAudio = new Audio(snippets[i]);
+            snippetAudio.volume = 0.7;
+            snippetAudio.play();
+          }
+        });
+      } else {
+        day.classList.add("locked");
       }
-    });
-  } else {
-    day.classList.add("locked");
-  }
 
-  calendar.appendChild(day);
-}
+      calendar.appendChild(day);
+    }
 
-    // Gift click handler
     gift.addEventListener("click", () => {
       gift.classList.add("bounce-out");
-
       birthdayCard.style.display = "block";
-
-      // Set default volume before play
       audio.volume = 0.5;
-
-      audio.play().catch(e => {
-        console.log("Audio play error:", e);
-      });
-
+      audio.play().catch(e => console.log("Audio play error:", e));
       setTimeout(() => {
         gift.style.display = "none";
         calendar.style.display = "block";
       }, 3000);
     });
 
-songSelector.addEventListener("change", () => {
-  const newSrc = songSelector.value;
-  audio.src = newSrc;
-  audio.load();
-  audio.play().catch((e) => {
-    console.log("Autoplay blocked or error:", e);
-  });
-});
+    songSelector.addEventListener("change", () => {
+      const newSrc = songSelector.value;
+      audio.src = newSrc;
+      audio.load();
+      audio.play().catch((e) => {
+        console.log("Autoplay blocked or error:", e);
+      });
+    });
 
-    // Play/pause toggle
     function togglePlay() {
       if (audio.paused) {
         audio.play();
@@ -242,29 +224,24 @@ songSelector.addEventListener("change", () => {
       }
     }
 
-    // Volume change
     function changeVolume(amount) {
       let newVolume = audio.volume + amount;
       newVolume = Math.min(1, Math.max(0, newVolume));
       audio.volume = newVolume;
       console.log("Volume:", Math.round(newVolume * 100) + "%");
     }
-    // Create falling stars
-function createStar() {
-  const star = document.createElement('div');
-  star.classList.add('star');
-  star.style.left = Math.random() * 100 + "vw";
-  star.style.animationDuration = 2 + Math.random() * 3 + "s";
-  star.style.opacity = Math.random();
-  document.body.appendChild(star);
 
-  setTimeout(() => {
-    star.remove();
-  }, 5000); // Clean up
-}
+    function createStar() {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.left = Math.random() * 100 + "vw";
+      star.style.animationDuration = 2 + Math.random() * 3 + "s";
+      star.style.opacity = Math.random();
+      document.body.appendChild(star);
+      setTimeout(() => star.remove(), 5000);
+    }
 
-setInterval(createStar, 300); // Add a star every 300ms
-
+    setInterval(createStar, 300);
   </script>
 </body>
 </html>
