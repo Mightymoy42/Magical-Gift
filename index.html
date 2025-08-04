@@ -24,13 +24,13 @@
     }
 
     #gift {
-  width: 150px;
-  cursor: pointer;
-  transition: transform 0.4s;
-  display: block;
-  margin: 0 auto;
-}
-
+      width: 150px;
+      cursor: pointer;
+      transition: transform 0.4s;
+      display: block;
+      margin: 0 auto;
+      user-select: none;
+    }
 
     #gift.clicked {
       animation: bounce 0.6s;
@@ -103,8 +103,7 @@
 </head>
 <body>
   <div id="gift-wrapper">
-    <img id="gift" src="images/gift-box.png" alt="Gift Box" style="width:150px; cursor:pointer; display:block; margin:auto;" />
-
+    <img id="gift" src="images/gift-box.png" alt="Gift Box" />
   </div>
 
   <h1 id="main-title" style="display: none;">🎉 Happy Birthday Month! 🎂</h1>
@@ -133,10 +132,10 @@
     const closeBtn = document.getElementById("close");
     const messageText = document.getElementById("messageText");
 
-    // Birthday card text (instead of image)
-    const birthdayCardText = "🎉 A Magical Gift for A Magicl Girl <3 🎂";
+    const birthdayCardText = "🎉 Wishing you the happiest birthday month filled with joy and love! 🎂";
 
     gift.addEventListener("click", () => {
+      console.log("Gift clicked!"); // Debug log
       gift.classList.add("clicked");
 
       setTimeout(() => {
@@ -145,16 +144,19 @@
         setTimeout(() => {
           wrapper.style.display = "none";
 
-          // Show birthday card as alert (or modal)
-          alert(birthdayCardText);
-
-          // Show calendar and music
-          calendar.style.display = "grid";
-          title.style.display = "block";
-          audio.style.display = "block";
-          audio.play();
+          // Show birthday card modal with text
+          messageText.textContent = birthdayCardText;
+          modal.classList.remove("hidden");
         }, 1000);
       }, 600);
+    });
+
+    closeBtn.addEventListener("click", () => {
+      modal.classList.add("hidden");
+      calendar.style.display = "grid";
+      title.style.display = "block";
+      audio.style.display = "block";
+      audio.play();
     });
 
     const today = new Date().getDate();
@@ -184,10 +186,6 @@
       messageText.textContent = messages[day] || "You're awesome!";
       modal.classList.remove("hidden");
     }
-
-    closeBtn.addEventListener("click", () => {
-      modal.classList.add("hidden");
-    });
   </script>
 </body>
 </html>
