@@ -83,6 +83,12 @@
   </style>
 </head>
 <body>
+  <select id="songSelector">
+  <option value="audio/sugar_on_my_tongue.mp3">Sugar On My Tongue</option>
+  <option value="audio/another-song.mp3">Another Song</option>
+  <option value="audio/yet-another-song.mp3">Yet Another Song</option>
+</select>
+
 
   <h1>🎉 Happy Birthday Month! 🎉</h1>
 
@@ -168,6 +174,14 @@
       audio.volume = newVolume;
       console.log("Volume:", Math.round(newVolume * 100) + "%");
     }
+    const audio = document.getElementById("bg-music");
+const songSelector = document.getElementById("songSelector");
+
+songSelector.addEventListener("change", () => {
+  audio.src = songSelector.value;
+  audio.play();
+});
+
   </script>
 </body>
 </html>
