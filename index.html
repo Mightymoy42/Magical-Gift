@@ -263,20 +263,15 @@ for (let i = 1; i <= 31; i++) {
   if (i <= currentDay) {
     day.classList.add("unlocked");
     day.addEventListener("click", () => {
-      const message = messages[i] || "You're awesome! 🎉";
-      const messageBox = document.getElementById("day-message-box");
-      const messageContent = document.getElementById("day-message-content");
+  showMessage(i); // this shows the message and launches balloons
 
-      messageContent.textContent = `🎁 Message for Day ${i}: ${message}`;
-      messageBox.style.display = "block";
-
-      if (snippets[i]) {
-        snippetAudio.pause();
-        snippetAudio.currentTime = 0;
-        snippetAudio.src = snippets[i];
-        snippetAudio.play().catch(e => console.log("Snippet play error:", e));
-      }
-    });
+  if (snippets[i]) {
+    snippetAudio.pause();
+    snippetAudio.currentTime = 0;
+    snippetAudio.src = snippets[i];
+    snippetAudio.play().catch(e => console.log("Snippet play error:", e));
+  }
+});
   } else {
     day.classList.add("locked");
   }
