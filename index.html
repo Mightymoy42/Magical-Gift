@@ -158,6 +158,13 @@
     const birthdayCardText = "🎉 A magical gift for a magicl girl 🎂";
     const notification = document.getElementById("notification");
 
+    gift.addEventListener("click", () => {
+  // Existing animation + calendar reveal logic...
+
+  // Try to play audio
+  audio.play().catch((err) => {
+    console.log("Autoplay blocked. Will require user interaction.");
+    
 gift.addEventListener("click", () => {
   gift.classList.add("clicked");
 
