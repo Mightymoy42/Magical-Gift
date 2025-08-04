@@ -166,48 +166,54 @@ const snippets = {
   // ... up to 31
 };
 
+// Customize messages per day
+const messages = {
+  1: "You make the world brighter 🌞",
+  2: "Your smile is magical ✨",
+  3: "You deserve all the happiness 💖",
+  4: "You're doing amazing 💪",
+  5: "Never forget how special you are 🌟",
+  // ... Add more messages for each day up to 31
+};
+
+// Customize snippet audio paths (if any)
+const snippets = {
+  1: "audio/snippet1.mp3",
+  2: "audio/snippet2.mp3",
+  3: "audio/snippet3.mp3",
+  4: "audio/snippet4.mp3",
+  5: "audio/snippet5.mp3",
+  // ... Add more snippets or leave some days without one
+};
+
+// Create merged calendar
+const today = new Date();
+const currentDay = today.getDate();
+
 for (let i = 1; i <= 31; i++) {
-  const dayElement = document.createElement('div');
-  dayElement.classList.add('day');
-  dayElement.textContent = i;
+  const day = document.createElement("div");
+  day.classList.add("day");
+  day.textContent = i;
 
-  if (i <= new Date().getDate()) {
-    dayElement.classList.add('unlocked');
-    dayElement.addEventListener('click', () => {
-      // Play snippet for this day
-      const snippetAudio = new Audio(snippets[i]);
-      snippetAudio.volume = 0.7;
-      snippetAudio.play();
+  if (i <= currentDay) {
+    day.classList.add("unlocked");
 
-      alert(`🎶 Playing snippet for day ${i}!`);
+    day.addEventListener("click", () => {
+      const message = messages[i] || "You're awesome! 🎉";
+      alert(`🎁 Message for Day ${i}: ${message}`);
+
+      if (snippets[i]) {
+        const snippetAudio = new Audio(snippets[i]);
+        snippetAudio.volume = 0.7;
+        snippetAudio.play();
+      }
     });
   } else {
-    dayElement.classList.add('locked');
+    day.classList.add("locked");
   }
-  calendar.appendChild(dayElement);
+
+  calendar.appendChild(day);
 }
-
-    // Create calendar days
-    for (let i = 1; i <= 31; i++) {
-      const day = document.createElement("div");
-      day.classList.add("day");
-
-      const today = new Date();
-      const currentDay = today.getDate();
-
-      if (i <= currentDay) {
-        day.classList.add("unlocked");
-        day.innerText = i;
-        day.addEventListener("click", () => {
-          alert(`🎁 Message for Day ${i}: You're amazing!`);
-        });
-      } else {
-        day.classList.add("locked");
-        day.innerText = i;
-      }
-
-      calendar.appendChild(day);
-    }
 
     // Gift click handler
     gift.addEventListener("click", () => {
