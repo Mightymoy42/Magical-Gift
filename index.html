@@ -115,14 +115,6 @@
   </div>
 
   <script>
-    const audio = document.getElementById("bg-music");
-const songSelector = document.getElementById("songSelector");
-
-songSelector.addEventListener("change", () => {
-  audio.src = songSelector.value;
-  audio.play();
-});
-
     const gift = document.getElementById("gift");
     const audio = document.getElementById("bg-music");
     const calendar = document.getElementById("calendar");
@@ -167,6 +159,14 @@ songSelector.addEventListener("change", () => {
         calendar.style.display = "block";
       }, 3000);
     });
+
+    const audio = document.getElementById("bg-music");
+const songSelector = document.getElementById("songSelector");
+
+songSelector.addEventListener("change", () => {
+  audio.src = songSelector.value;
+  audio.play();
+});
 
     function togglePlay() {
       if (audio.paused) {
