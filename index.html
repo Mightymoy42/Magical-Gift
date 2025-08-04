@@ -259,12 +259,45 @@ gift.addEventListener("click", () => {
       audio.pause();
     }
   }
+<script>
+  const gift = document.getElementById("gift");
+  const audio = document.getElementById("bg-music");
+  const calendar = document.getElementById("calendar");
+  const birthdayCard = document.getElementById("birthday-card");
+
+  gift.addEventListener("click", () => {
+    gift.classList.add("bounce-out");
+    
+    // Show the birthday card
+    birthdayCard.classList.add("show");
+    
+    // Play the music
+    audio.play().catch((e) => {
+      console.log("Autoplay blocked:", e);
+    });
+
+    // After a delay, hide gift and card, show calendar
+    setTimeout(() => {
+      gift.style.display = "none";
+      birthdayCard.style.display = "none";
+      calendar.style.display = "block";
+    }, 3000);
+  });
+
+  function togglePlay() {
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  }
 
   function changeVolume(amount) {
     let newVolume = audio.volume + amount;
     newVolume = Math.min(1, Math.max(0, newVolume)); // Clamp between 0 and 1
     audio.volume = newVolume;
     console.log("Volume:", Math.round(newVolume * 100) + "%");
+      
     #music-controls button {
   margin: 5px;
   padding: 10px 15px;
