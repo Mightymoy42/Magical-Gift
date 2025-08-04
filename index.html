@@ -4,7 +4,30 @@
   <meta charset="UTF-8" />
   <title>Happy Birthday Month!</title>
   <style>
+    #notification {
+  position: fixed;
+  top: -100px; /* Hidden above the viewport initially */
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ff69b4;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  font-size: 1.2em;
+  font-weight: bold;
+  z-index: 30;
+  transition: top 0.5s ease;
+  cursor: pointer;
+  user-select: none;
+}
+#notification.show {
+  top: 0;
+}
+
     body {
+      <div id="notification">🎉 Wishing you the happiest birthday month filled with joy and love! 🎂</div>
+
       font-family: sans-serif;
       text-align: center;
       background: #fff0f5;
@@ -133,6 +156,33 @@
     const messageText = document.getElementById("messageText");
 
     const birthdayCardText = "🎉 A magical gift for a magicl girl 🎂";
+    const notification = document.getElementById("notification");
+
+gift.addEventListener("click", () => {
+  gift.classList.add("clicked");
+
+  setTimeout(() => {
+    wrapper.style.opacity = 0;
+
+    setTimeout(() => {
+      wrapper.style.display = "none";
+
+      // Show the drop-down notification
+      notification.classList.add("show");
+
+      // Hide notification and show calendar/music after 3 seconds
+      setTimeout(() => {
+        notification.classList.remove("show");
+
+        calendar.style.display = "grid";
+        title.style.display = "block";
+        audio.style.display = "block";
+        audio.play();
+      }, 3000);
+    }, 1000);
+  }, 600);
+});
+
 
     gift.addEventListener("click", () => {
       console.log("Gift clicked!"); // Debug log
