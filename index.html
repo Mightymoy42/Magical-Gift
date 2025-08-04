@@ -96,16 +96,20 @@
   <div id="calendar"></div>
 
   <!-- Music Player -->
-  <!-- Option 2: Leave space for fallback -->
-<audio id="bg-music" src="audio/sugar-on-my-tongue.mp3" preload="auto" loop></audio>
-</audio>
+  <audio id="bg-music" preload="auto" loop>
+    <source src="audio/sugar-on-my-tongue.mp3" type="audio/mpeg" />
+    <source src="audio/sugar-on-my-tongue.ogg" type="audio/ogg" />
+    Your browser does not support the audio element.
+  </audio>
 
-  
   <div id="music-controls">
     <button onclick="togglePlay()">▶️ / ⏸️</button>
     <button onclick="changeVolume(-0.1)">🔉</button>
     <button onclick="changeVolume(0.1)">🔊</button>
   </div>
+
+  <!-- Manual test play button -->
+  <button onclick="document.getElementById('bg-music').play()">Test Music</button>
 
   <script>
     const gift = document.getElementById("gift");
@@ -139,6 +143,9 @@
       gift.classList.add("bounce-out");
 
       birthdayCard.style.display = "block";
+
+      // Set volume before play to avoid autoplay issues
+      audio.volume = 0.5;
 
       audio.play().catch((e) => {
         console.log("Autoplay blocked:", e);
