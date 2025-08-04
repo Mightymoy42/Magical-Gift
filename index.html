@@ -85,9 +85,9 @@
 <body>
   <select id="songSelector">
   <option value="audio/sugar_on_my_tongue.mp3">Sugar On My Tongue</option>
-  <option value="audio/another-song.mp3">Another Song</option>
-  <option value="audio/yet-another-song.mp3">Yet Another Song</option>
+  <option value="audio/Nintendo-Mii.mp3">Nintendo Mii Theme</option>
 </select>
+
 
 
   <h1>🎉 Happy Birthday Month! 🎉</h1>
@@ -115,6 +115,14 @@
   </div>
 
   <script>
+    const audio = document.getElementById("bg-music");
+const songSelector = document.getElementById("songSelector");
+
+songSelector.addEventListener("change", () => {
+  audio.src = songSelector.value;
+  audio.play();
+});
+
     const gift = document.getElementById("gift");
     const audio = document.getElementById("bg-music");
     const calendar = document.getElementById("calendar");
