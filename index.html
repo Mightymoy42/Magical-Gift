@@ -113,6 +113,38 @@
         opacity: 0;
       }
     }
+
+    /* 🎁 Message Popup Box */
+    #day-message-box {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff0f5;
+      border: 2px solid #ffb6c1;
+      border-radius: 12px;
+      padding: 20px 30px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+      display: none;
+      max-width: 300px;
+    }
+
+    #day-message-content {
+      font-size: 18px;
+      color: #a0522d;
+      margin-bottom: 15px;
+      white-space: pre-wrap;
+    }
+
+    #day-message-box button {
+      padding: 8px 14px;
+      font-size: 16px;
+      border: none;
+      background-color: #ffb6c1;
+      border-radius: 8px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -127,7 +159,12 @@
   </div>
 
   <div id="calendar"></div>
-
+  
+  <div id="day-message-box">
+  <div id="day-message-content"></div>
+  <button onclick="closeMessage()">Close</button>
+</div>
+  
   <!-- Music Player -->
   <audio id="bg-music" src="audio/sugar_on_my_tongue.mp3" preload="auto" loop>
     Your browser does not support the audio element.
@@ -246,6 +283,10 @@
 }
 
 setInterval(createStar, 300);
+    
+    function closeMessage() {
+  document.getElementById('day-message-box').style.display = 'none';
+}
   </script>
 </body>
 </html>
