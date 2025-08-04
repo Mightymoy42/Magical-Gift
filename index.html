@@ -258,15 +258,19 @@
       if (i <= currentDay) {
         day.classList.add("unlocked");
         day.addEventListener("click", () => {
-          const message = messages[i] || "You're awesome! 🎉";
-          alert(`🎁 Message for Day ${i}: ${message}`);
+  const message = messages[i] || "You're awesome! 🎉";
+  const messageBox = document.getElementById("day-message-box");
+  const messageContent = document.getElementById("day-message-content");
 
-          if (snippets[i]) {
-            const snippetAudio = new Audio(snippets[i]);
-            snippetAudio.volume = 0.7;
-            snippetAudio.play();
-          }
-        });
+  messageContent.textContent = `🎁 Message for Day ${i}: ${message}`;
+  messageBox.style.display = "block";
+
+  if (snippets[i]) {
+    const snippetAudio = new Audio(snippets[i]);
+    snippetAudio.volume = 0.7;
+    snippetAudio.play();
+  }
+});
       } else {
         day.classList.add("locked");
       }
