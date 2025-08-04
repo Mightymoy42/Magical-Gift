@@ -129,6 +129,7 @@
   display: none;
   max-width: 450px; /* bigger width */
   font-family: 'Comic Sans MS', cursive;
+  animation: popIn 0.4s ease-out;
 }
 
 #day-message-content {
@@ -154,7 +155,37 @@
 
 #day-message-box button:hover {
   background-color: #ff8fab;
+  animation: buttonBounce 0.4s ease;
 }
+
+@keyframes buttonBounce {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+.balloon {
+  position: fixed;
+  bottom: -60px;
+  width: 30px;
+  height: 40px;
+  background-color: pink;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  animation: floatUp 4s ease-out forwards;
+  z-index: 1000;
+  opacity: 0.9;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-120vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -308,6 +339,35 @@ setInterval(createStar, 300);
     
     function closeMessage() {
   document.getElementById('day-message-box').style.display = 'none';
+}
+    function showMessage(day) {
+  const box = document.getElementById("day-message-box");
+  const content = document.getElementById("day-message-content");
+
+ content.textContent = messages[day] || "No message found.";
+  box.style.display = "block";
+  box.style.animation = "none";
+void box.offsetWidth; // force reflow
+box.style.animation = "popIn 0.4s ease-out";
+launchBalloons(); // 🎈 Launch balloons!
+}
+    function launchBalloons() {
+  for (let i = 0; i < 5; i++) {
+    const balloon = document.createElement("div");
+    balloon.className = "balloon";
+    balloon.style.left = `${Math.random() * 100}%`;
+    balloon.style.backgroundColor = getRandomBalloonColor();
+    document.body.appendChild(balloon);
+
+    setTimeout(() => {
+      balloon.remove();
+    }, 4000);
+  }
+}
+
+function getRandomBalloonColor() {
+  const colors = ["#ff69b4", "#ffb6c1", "#ffd700", "#add8e6", "#98fb98"];
+  return colors[Math.floor(Math.random() * colors.length)];
 }
   </script>
 </body>
