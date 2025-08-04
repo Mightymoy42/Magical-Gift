@@ -4,13 +4,104 @@
   <meta charset="UTF-8">
   <title>Happy Birthday Month!</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background: #fff0f5;
+      overflow-x: hidden;
+    }
+
+    #gift-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      transition: opacity 1s ease;
+    }
+
+    #gift {
+      width: 150px;
+      cursor: pointer;
+      transition: transform 0.4s;
+    }
+
+    #gift.clicked {
+      animation: bounce 0.6s;
+    }
+
+    @keyframes bounce {
+      0%   { transform: scale(1); }
+      25%  { transform: scale(1.1); }
+      50%  { transform: scale(0.95); }
+      75%  { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    #calendar {
+      display: none;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+      max-width: 600px;
+      margin: 20px auto;
+    }
+
+    .day {
+      background: #ffe4e1;
+      padding: 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .day.locked {
+      background: #ddd;
+      cursor: not-allowed;
+    }
+
+    .day:hover:not(.locked) {
+      background: #ffb6c1;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal.hidden {
+      display: none;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .close {
+      float: right;
+      cursor: pointer;
+      font-size: 20px;
+    }
+  </style>
 </head>
 <body>
-  <h1>🎉 Happy Birthday Month! 🎂</h1>
-  <audio id="bg-music" controls autoplay loop>
+  <div id="gift-wrapper">
+    <img id="gift" src="images/placeholder.jpg" alt="Gift Box">
+  </div>
+
+  <h1 id="main-title" style="display: none;">🎉 Happy Birthday Month! 🎂</h1>
+
+  <audio id="bg-music" controls autoplay loop style="display: none;">
     <source src="audio/sample.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
+
   <div class="calendar" id="calendar"></div>
 
   <div id="modal" class="modal hidden">
@@ -21,6 +112,65 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    const gift = document.getElementById("gift");
+    const wrapper = document.getElementById("gift-wrapper");
+    const calendar = document.getElementById("calendar");
+    const title = document.getElementById("main-title");
+    const audio = document.getElementById("bg-music");
+
+    gift.addEventListener("click", () => {
+      gift.classList.add("clicked");
+      setTimeout(() => {
+        wrapper.style.opacity = 0;
+        setTimeout(() => {
+          wrapper.style.display = "none";
+          calendar.style.display = "grid";
+          title.style.display = "block";
+          audio.style.display = "block";
+          audio.play();
+        }, 1000);
+      }, 600);
+    });
+
+    const today = new Date().getDate();
+    const messages = {
+      1: { text: "You're amazing!", img: "images/placeholder.jpg" },
+      2: { text: "You make life brighter.", img: "images/placeholder.jpg" },
+      3: { text: "You're appreciated!", img: "images/placeholder.jpg" },
+      // Add more days...
+    };
+
+    for (let day = 1; day <= 31; day++) {
+      const div = document.createElement("div");
+      div.className = "day";
+      div.textContent = day;
+
+      if (day > today) {
+        div.classList.add("locked");
+      } else {
+        div.addEventListener("click", () => showMessage(day));
+      }
+
+      calendar.appendChild(div);
+    }
+
+    function showMessage(day) {
+      const modal = document.getElementById("modal");
+      const text = document.getElementById("messageText");
+      const img = document.getElementById("messageImage");
+
+      const message = messages[day];
+      text.textContent = message ? message.text : "You're awesome!";
+      img.src = message ? message.img : "images/placeholder.jpg";
+
+      modal.classList.remove("hidden");
+    }
+
+    document.getElementById("close").addEventListener("click", () => {
+      document.getElementById("modal").classList.add("hidden");
+    });
+  </script>
 </body>
 </html>
+oka
