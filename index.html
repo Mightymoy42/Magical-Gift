@@ -334,6 +334,8 @@ setInterval(createStar, 300);
     
     function closeMessage() {
   document.getElementById('day-message-box').style.display = 'none';
+  snippetAudio.pause();
+  snippetAudio.currentTime = 0;
 }
     function showMessage(day) {
   const box = document.getElementById("day-message-box");
