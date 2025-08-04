@@ -36,16 +36,6 @@
       display: none;
       margin: 20px auto;
       width: 200px;
-      animation: slideDown 1s forwards;
-    }
-
-    .show {
-      display: block !important;
-    }
-
-    @keyframes slideDown {
-      from { transform: translateY(-100px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
     }
 
     #calendar {
@@ -145,7 +135,7 @@
     gift.addEventListener("click", () => {
       gift.classList.add("bounce-out");
 
-      birthdayCard.classList.add("show");
+      birthdayCard.style.display = "block";
 
       audio.play().catch((e) => {
         console.log("Autoplay blocked:", e);
@@ -153,7 +143,6 @@
 
       setTimeout(() => {
         gift.style.display = "none";
-        birthdayCard.style.display = "none";
         calendar.style.display = "block";
       }, 3000);
     });
