@@ -2,317 +2,175 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Happy Birthday Month!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Birthday Surprise</title>
   <style>
-    #notification {
-  position: fixed;
-  top: -100px; /* Hidden above the viewport initially */
-  left: 50%;
-  transform: translateX(-50%);
-  background: #ff69b4;
-  color: white;
-  padding: 15px 30px;
-  border-radius: 0 0 10px 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  font-size: 1.2em;
-  font-weight: bold;
-  z-index: 30;
-  transition: top 0.5s ease;
-  cursor: pointer;
-  user-select: none;
-}
-#notification.show {
-  top: 0;
-}
-
     body {
-      <div id="notification">🎉 Wishing you the happiest birthday month filled with joy and love! 🎂</div>
-
-      font-family: sans-serif;
-      text-align: center;
+      font-family: 'Segoe UI', sans-serif;
       background: #fff0f5;
-      overflow-x: hidden;
-      margin: 0;
-      padding: 0;
-    }
-
-    #gift-wrapper {
-      position: relative;
-      z-index: 10;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      transition: opacity 1s ease;
+      text-align: center;
+      padding-top: 50px;
     }
 
     #gift {
       width: 150px;
       cursor: pointer;
       transition: transform 0.4s;
-      display: block;
-      margin: 0 auto;
-      user-select: none;
     }
 
-    #gift.clicked {
-      animation: bounce 0.6s;
+    #gift:hover {
+      transform: scale(1.1);
     }
 
-    @keyframes bounce {
-      0%   { transform: scale(1); }
-      25%  { transform: scale(1.1); }
-      50%  { transform: scale(0.95); }
-      75%  { transform: scale(1.05); }
-      100% { transform: scale(1); }
+    .bounce-out {
+      animation: bounceOut 1s forwards;
+    }
+
+    @keyframes bounceOut {
+      0% { transform: scale(1); }
+      30% { transform: scale(1.2); }
+      100% { transform: scale(0); opacity: 0; }
+    }
+
+    #birthday-card {
+      display: none;
+      margin: 20px auto;
+      width: 200px;
+      animation: slideDown 1s forwards;
+    }
+
+    .show {
+      display: block !important;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     #calendar {
       display: none;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 10px;
-      max-width: 600px;
-      margin: 20px auto;
+      margin-top: 20px;
     }
 
     .day {
-      background: #ffe4e1;
-      padding: 20px;
+      display: inline-block;
+      width: 60px;
+      height: 60px;
+      margin: 5px;
+      background: #ffe4ec;
       border-radius: 10px;
+      line-height: 60px;
+      font-weight: bold;
+      color: #555;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .locked {
+      filter: grayscale(100%);
+      cursor: default;
+    }
+
+    .unlocked {
+      background-color: #ffb6c1;
       cursor: pointer;
-      transition: 0.3s;
-      user-select: none;
     }
 
-    .day.locked {
-      background: #ddd;
-      cursor: not-allowed;
-    }
-
-    .day:hover:not(.locked) {
-      background: #ffb6c1;
-    }
-
-    .modal {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.5);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 20;
-    }
-
-    .modal.hidden {
-      display: none;
-    }
-
-    .modal-content {
-      background: white;
-      padding: 30px;
+    #music-controls button {
+      margin: 5px;
+      padding: 10px 15px;
+      font-size: 18px;
+      cursor: pointer;
       border-radius: 10px;
-      text-align: center;
-      max-width: 90vw;
-      max-height: 90vh;
-      overflow-y: auto;
+      background-color: #f8c1d1;
+      border: none;
+      transition: transform 0.2s;
     }
 
-    .close {
-      float: right;
-      cursor: pointer;
-      font-size: 20px;
+    #music-controls button:hover {
+      transform: scale(1.1);
     }
   </style>
 </head>
 <body>
-  <div id="gift-wrapper">
-    <img id="gift" src="images/gift-box.png" alt="Gift Box" />
+
+  <h1>🎉 Happy Birthday Month! 🎉</h1>
+
+  <img id="gift" src="images/gift-box.png" alt="Gift Box" />
+
+  <div id="birthday-card">
+    <img src="images/birthday-card.png" alt="Birthday Card" style="width: 100%;" />
+    <p style="font-style: italic; color: #a0522d;">Wishing you smiles, laughter, and love every day this month 💖</p>
   </div>
-  
-  <div id="music-controls" style="margin-top: 20px; text-align: center;">
-    
-  <button onclick="togglePlay()">▶️ / ⏸️</button>
-  <button onclick="changeVolume(-0.1)">🔉</button>
-  <button onclick="changeVolume(0.1)">🔊</button>
-</div>
 
-  <h1 id="main-title" style="display: none;">🎉 Happy Birthday Month! 🎂</h1>
+  <div id="calendar"></div>
 
-<audio id="bg-music" autoplay loop style="display: none;">
-  <source src="audio/sugar_on_my_tongue.mp3" type="audio/mpeg" />
-  Your browser does not support the audio element.
-</audio>
+  <!-- Music Player -->
+  <audio id="bg-music" src="audio/birthday-music.mp3" preload="auto" loop></audio>
 
-  <div class="calendar" id="calendar"></div>
-
-  <div id="modal" class="modal hidden">
-    <div class="modal-content">
-      <span id="close" class="close">&times;</span>
-      <p id="messageText" style="font-size: 1.2em;"></p>
-    </div>
+  <div id="music-controls">
+    <button onclick="togglePlay()">▶️ / ⏸️</button>
+    <button onclick="changeVolume(-0.1)">🔉</button>
+    <button onclick="changeVolume(0.1)">🔊</button>
   </div>
 
   <script>
     const gift = document.getElementById("gift");
-    const wrapper = document.getElementById("gift-wrapper");
-    const calendar = document.getElementById("calendar");
-    const title = document.getElementById("main-title");
     const audio = document.getElementById("bg-music");
-    const modal = document.getElementById("modal");
-    const closeBtn = document.getElementById("close");
-    const messageText = document.getElementById("messageText");
+    const calendar = document.getElementById("calendar");
+    const birthdayCard = document.getElementById("birthday-card");
 
-    const birthdayCardText = "🎉 A magical gift for a magicl girl 🎂";
-    const notification = document.getElementById("notification");
+    // Create 31 days
+    for (let i = 1; i <= 31; i++) {
+      const day = document.createElement("div");
+      day.classList.add("day");
 
-    gift.addEventListener("click", () => {
-  // Existing animation + calendar reveal logic...
+      const today = new Date();
+      const currentDay = today.getDate();
 
-  // Try to play audio
-  audio.play().catch((err) => {
-    console.log("Autoplay blocked. Will require user interaction.");
-    
-gift.addEventListener("click", () => {
-  gift.classList.add("clicked");
-
-  setTimeout(() => {
-    wrapper.style.opacity = 0;
-
-    setTimeout(() => {
-      wrapper.style.display = "none";
-
-      // Show the drop-down notification
-      notification.classList.add("show");
-
-      // Hide notification and show calendar/music after 3 seconds
-      setTimeout(() => {
-        notification.classList.remove("show");
-
-        calendar.style.display = "grid";
-        title.style.display = "block";
-        audio.style.display = "block";
-        audio.play();
-      }, 3000);
-    }, 1000);
-  }, 600);
-});
-
-
-    gift.addEventListener("click", () => {
-      console.log("Gift clicked!"); // Debug log
-      gift.classList.add("clicked");
-
-      setTimeout(() => {
-        wrapper.style.opacity = 0;
-
-        setTimeout(() => {
-          wrapper.style.display = "none";
-
-          // Show birthday card modal with text
-          messageText.textContent = birthdayCardText;
-          modal.classList.remove("hidden");
-        }, 1000);
-      }, 600);
-    });
-
-    closeBtn.addEventListener("click", () => {
-      modal.classList.add("hidden");
-      calendar.style.display = "grid";
-      title.style.display = "block";
-      audio.style.display = "block";
-      audio.play();
-    });
-
-    const today = new Date().getDate();
-
-    const messages = {
-      1: "You're amazing!",
-      2: "You make life brighter.",
-      3: "You're appreciated!",
-      // Add more days here...
-    };
-
-    for (let day = 1; day <= 31; day++) {
-      const div = document.createElement("div");
-      div.className = "day";
-      div.textContent = day;
-
-      if (day > today) {
-        div.classList.add("locked");
+      if (i <= currentDay) {
+        day.classList.add("unlocked");
+        day.innerText = i;
+        day.addEventListener("click", () => {
+          alert(`🎁 Message for Day ${i}: You're amazing!`);
+        });
       } else {
-        div.addEventListener("click", () => showMessage(day));
+        day.classList.add("locked");
+        day.innerText = i;
       }
 
-      calendar.appendChild(div);
+      calendar.appendChild(day);
     }
 
-    function showMessage(day) {
-      messageText.textContent = messages[day] || "You're awesome!";
-      modal.classList.remove("hidden");
-      <script>
-  const audio = document.getElementById("bg-music");
+    gift.addEventListener("click", () => {
+      gift.classList.add("bounce-out");
 
-  function togglePlay() {
-    if (audio.paused) {
-      audio.play();
-    } else {
-      audio.pause();
-    }
-  }
-<script>
-  const gift = document.getElementById("gift");
-  const audio = document.getElementById("bg-music");
-  const calendar = document.getElementById("calendar");
-  const birthdayCard = document.getElementById("birthday-card");
+      birthdayCard.classList.add("show");
 
-  gift.addEventListener("click", () => {
-    gift.classList.add("bounce-out");
-    
-    // Show the birthday card
-    birthdayCard.classList.add("show");
-    
-    // Play the music
-    audio.play().catch((e) => {
-      console.log("Autoplay blocked:", e);
+      audio.play().catch((e) => {
+        console.log("Autoplay blocked:", e);
+      });
+
+      setTimeout(() => {
+        gift.style.display = "none";
+        birthdayCard.style.display = "none";
+        calendar.style.display = "block";
+      }, 3000);
     });
 
-    // After a delay, hide gift and card, show calendar
-    setTimeout(() => {
-      gift.style.display = "none";
-      birthdayCard.style.display = "none";
-      calendar.style.display = "block";
-    }, 3000);
-  });
-
-  function togglePlay() {
-    if (audio.paused) {
-      audio.play();
-    } else {
-      audio.pause();
+    function togglePlay() {
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
     }
-  }
 
-  function changeVolume(amount) {
-    let newVolume = audio.volume + amount;
-    newVolume = Math.min(1, Math.max(0, newVolume)); // Clamp between 0 and 1
-    audio.volume = newVolume;
-    console.log("Volume:", Math.round(newVolume * 100) + "%");
-      
-    #music-controls button {
-  margin: 5px;
-  padding: 10px 15px;
-  font-size: 18px;
-  cursor: pointer;
-  border-radius: 10px;
-  background-color: #f8c1d1;
-  border: none;
-  transition: transform 0.2s;
-}
-
-#music-controls button:hover {
-  transform: scale(1.1);
-}
-
+    function changeVolume(amount) {
+      let newVolume = audio.volume + amount;
+      newVolume = Math.min(1, Math.max(0, newVolume));
+      audio.volume = newVolume;
+      console.log("Volume:", Math.round(newVolume * 100) + "%");
     }
   </script>
 </body>
