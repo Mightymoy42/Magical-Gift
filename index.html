@@ -129,6 +129,16 @@
     const calendar = document.getElementById("calendar");
     const title = document.getElementById("main-title");
     const audio = document.getElementById("bg-music");
+<script>
+  // Get the gift element by its ID
+  const gift = document.getElementById("gift");
+
+  // Add a click listener to log and alert when clicked
+  gift.addEventListener("click", () => {
+    console.log("Gift clicked!");
+    alert("Gift clicked!"); // Shows a popup so you see it definitely worked
+  });
+</script>
 
     // Create birthday card element
     const card = document.createElement("img");
