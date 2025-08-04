@@ -7,7 +7,7 @@
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #ffc0cb;
+      background: #ffdee99;
       text-align: center;
       padding-top: 50px;
     }
@@ -90,6 +90,25 @@
       background-color: #fff0f5;
       cursor: pointer;
     }
+    
+    .star {
+  position: fixed;
+  top: -20px;
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: fall linear infinite;
+  z-index: 0;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
   </style>
 </head>
 <body>
