@@ -23,12 +23,19 @@
       z-index: 5;
     }
 
-    #gift {
-      width: 150px;
-      cursor: pointer;
-      transition: transform 0.4s;
-    }
+    #gift-wrapper {
+  position: relative;
+  z-index: 10; /* ensure it's above other elements */
+}
 
+#gift {
+  width: 150px;
+  cursor: pointer;
+  transition: transform 0.4s;
+  display: block;       /* Add this to prevent weird spacing */
+  margin: 0 auto;       /* Center the gift image */
+}
+    
     #gift.clicked {
       animation: bounce 0.6s;
     }
