@@ -13,10 +13,9 @@
       padding: 0;
     }
 
-    /* Make gift-wrapper positioned and on top */
     #gift-wrapper {
       position: relative;
-      z-index: 10; /* Make sure gift is above other elements */
+      z-index: 10;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -26,10 +25,14 @@
 
     #gift {
       width: 150px;
+      height: 150px;
+      background: #f06;
+      border-radius: 15px;
       cursor: pointer;
       transition: transform 0.4s;
       display: block;
       margin: 0 auto;
+      box-shadow: 0 5px 15px rgba(240, 6, 100, 0.7);
     }
 
     #gift.clicked {
@@ -103,7 +106,7 @@
 </head>
 <body>
   <div id="gift-wrapper">
-    <div id="gift" style="width:150px; height:150px; background:#f06; cursor:pointer; margin:auto;"></div>
+    <div id="gift" title="Click to open your gift!"></div>
   </div>
 
   <h1 id="main-title" style="display: none;">🎉 Happy Birthday Month! 🎂</h1>
@@ -118,8 +121,7 @@
   <div id="modal" class="modal hidden">
     <div class="modal-content">
       <span id="close" class="close">&times;</span>
-      <img id="messageImage" src="" alt="" style="max-width: 100%; border-radius: 10px;" /><br />
-      <p id="messageText"></p>
+      <p id="messageText" style="font-size: 1.2em;"></p>
     </div>
   </div>
 
@@ -129,37 +131,14 @@
     const calendar = document.getElementById("calendar");
     const title = document.getElementById("main-title");
     const audio = document.getElementById("bg-music");
-<script>
-  // Get the gift element by its ID
-  const gift = document.getElementById("gift");
+    const modal = document.getElementById("modal");
+    const closeBtn = document.getElementById("close");
+    const messageText = document.getElementById("messageText");
 
-  // Add a click listener to log and alert when clicked
-  gift.addEventListener("click", () => {
-    console.log("Gift clicked!");
-    alert("Gift clicked!"); // Shows a popup so you see it definitely worked
-  });
-</script>
+    // Birthday card text (instead of image)
+    const birthdayCardText = "🎉 Wishing you the happiest birthday month filled with joy and love! 🎂";
 
-    // Create birthday card element
-    const card = document.createElement("img");
-    card.src = "images/birthday_card.jpg"; // Make sure you uploaded this file
-    card.alt = "Birthday Card";
-    card.style.maxWidth = "80%";
-    card.style.borderRadius = "15px";
-    card.style.boxShadow = "0 5px 15px rgba(0,0,0,0.3)";
-    card.style.transition = "opacity 1s ease";
-    card.style.opacity = "0";
-    card.style.position = "absolute";
-    card.style.top = "50%";
-    card.style.left = "50%";
-    card.style.transform = "translate(-50%, -50%)";
-    card.style.zIndex = "20";
-    card.style.cursor = "pointer";
-    document.body.appendChild(card);
-
-    // Add click logging to help debug
     gift.addEventListener("click", () => {
-      console.log("Gift clicked!");
       gift.classList.add("clicked");
 
       setTimeout(() => {
@@ -168,34 +147,24 @@
         setTimeout(() => {
           wrapper.style.display = "none";
 
-          // Show birthday card
-          card.style.opacity = "1";
+          // Show birthday card as alert (or modal)
+          alert(birthdayCardText);
 
-          const continueToCalendar = () => {
-            card.removeEventListener("click", continueToCalendar);
-            card.style.opacity = "0";
-            setTimeout(() => {
-              card.style.display = "none";
-              calendar.style.display = "grid";
-              title.style.display = "block";
-              audio.style.display = "block";
-              audio.play();
-            }, 1000);
-          };
-
-          card.addEventListener("click", continueToCalendar);
-          setTimeout(continueToCalendar, 4000);
+          // Show calendar and music
+          calendar.style.display = "grid";
+          title.style.display = "block";
+          audio.style.display = "block";
+          audio.play();
         }, 1000);
       }, 600);
     });
 
-    // Calendar and messages setup
     const today = new Date().getDate();
 
     const messages = {
-      1: { text: "You're amazing!", img: "images/day1.jpg" },
-      2: { text: "You make life brighter.", img: "images/day2.jpg" },
-      3: { text: "You're appreciated!", img: "images/day3.jpg" },
+      1: "You're amazing!",
+      2: "You make life brighter.",
+      3: "You're appreciated!",
       // Add more days here...
     };
 
@@ -214,19 +183,12 @@
     }
 
     function showMessage(day) {
-      const modal = document.getElementById("modal");
-      const text = document.getElementById("messageText");
-      const img = document.getElementById("messageImage");
-
-      const message = messages[day];
-      text.textContent = message ? message.text : "You're awesome!";
-      img.src = message ? message.img : "images/placeholder.jpg";
-
+      messageText.textContent = messages[day] || "You're awesome!";
       modal.classList.remove("hidden");
     }
 
-    document.getElementById("close").addEventListener("click", () => {
-      document.getElementById("modal").classList.add("hidden");
+    closeBtn.addEventListener("click", () => {
+      modal.classList.add("hidden");
     });
   </script>
 </body>
