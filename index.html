@@ -40,42 +40,12 @@
       margin: 20px auto;
       width: 200px;
     }
+    
     #calendar {
-  display: none;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
+      display: none;
+      margin-top: 20px;
+    }
 
-#calendar-container {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  margin-top: 40px;
-  display: none; /* initially hidden */
-}
-
-.calendar-column {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.calendar-day {
-  padding: 10px 15px;
-  background-color: #ffe0f0;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-family: 'Comic Sans MS', cursive;
-  font-size: 16px;
-  transition: transform 0.2s, background-color 0.3s;
-}
-
-.calendar-day:hover {
-  background-color: #ffc0de;
-  transform: scale(1.05);
-}
     .day {
       display: inline-block;
       width: 60px;
@@ -318,10 +288,7 @@
   <img src="images/card.jpg" alt="Birthday Card" style="max-width: 100%; border-radius: 12px;">
 </div>
 
-  <div id="calendar-container">
-  <div class="calendar-column" id="left-column"></div>
-  <div class="calendar-column" id="right-column"></div>
-</div>
+  <div id="calendar"></div>
 
   
   <div id="day-message-box">
@@ -511,27 +478,6 @@ launchBalloons(); // 🎈 Launch balloons!
 }
     function closeCard() {
   birthdayCard.style.display = "none";
-}
-
-function getRandomBalloonColor() {
-  const colors = ["#ff69b4", "#ffb6c1", "#ffd700", "#add8e6", "#98fb98"];
-  return colors[Math.floor(Math.random() * colors.length)];
-}
-  
-const leftColumn = document.getElementById('left-column');
-const rightColumn = document.getElementById('right-column');
-
-for (let day = 1; day <= 31; day++) {
-  const dayButton = document.createElement('button');
-  dayButton.className = 'calendar-day';
-  dayButton.textContent = day;
-  dayButton.onclick = () => openMessage(day);
-
-  if (day <= 15) {
-    leftColumn.appendChild(dayButton);
-  } else {
-    rightColumn.appendChild(dayButton);
-  }
 }
 
   </script>
