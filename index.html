@@ -375,7 +375,7 @@ launchBalloons(); // 🎈 Launch balloons!
   for (let i = 0; i < 5; i++) {
     const balloon = document.createElement("div");
     balloon.className = "balloon";
-    balloon.style.left = ${Math.random() * 100}%;
+    balloon.style.left = `${Math.random() * 100}%`;
     balloon.style.backgroundColor = getRandomBalloonColor();
     document.body.appendChild(balloon);
 
