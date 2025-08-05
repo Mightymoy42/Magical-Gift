@@ -41,12 +41,12 @@
       width: 200px;
     }
 
-    #calendar-container {
+#calendar-container {
   display: flex;
   justify-content: center;
   gap: 40px;
   margin-top: 40px;
-  display: none; /* This hides the calendar initially */
+  display: none; /* initially hidden */
 }
 
 .calendar-column {
@@ -70,7 +70,6 @@
   background-color: #ffc0de;
   transform: scale(1.05);
 }
-
     .day {
       display: inline-block;
       width: 60px;
@@ -513,14 +512,14 @@ function getRandomBalloonColor() {
   return colors[Math.floor(Math.random() * colors.length)];
 }
   
- const leftColumn = document.getElementById('left-column');
+const leftColumn = document.getElementById('left-column');
 const rightColumn = document.getElementById('right-column');
 
 for (let day = 1; day <= 31; day++) {
   const dayButton = document.createElement('button');
   dayButton.className = 'calendar-day';
   dayButton.textContent = day;
-  dayButton.onclick = () => openMessage(day); // your existing function
+  dayButton.onclick = () => openMessage(day);
 
   if (day <= 15) {
     leftColumn.appendChild(dayButton);
