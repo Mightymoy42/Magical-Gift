@@ -213,6 +213,7 @@
   <img id="gift" src="images/gift-box.png" alt="Gift Box" />
 
   <div id="birthday-card" style="display: none;">
+  <button onclick="closeCard()" style="float: right; border: none; background: transparent; font-size: 20px; cursor: pointer;">❌</button>
   <h2>🎂 Happy Birthday Month!</h2>
   <p>Let’s make every day a celebration! 💖</p>
   <img src="images/card.png" alt="Birthday Card" style="max-width: 100%; border-radius: 12px;">
@@ -382,6 +383,9 @@ launchBalloons(); // 🎈 Launch balloons!
       balloon.remove();
     }, 4000);
   }
+}
+    function closeCard() {
+  birthdayCard.style.display = "none";
 }
 
 function getRandomBalloonColor() {
