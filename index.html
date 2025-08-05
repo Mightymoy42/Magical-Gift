@@ -260,6 +260,32 @@
     </div>
   </div>
 </div>
+    <img src="images/axolotl.png" class="sticker sparkle" alt="Axolotl Sticker">
+
+ .sticker {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 100px;
+  height: auto;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+/* Sparkle animation */
+@keyframes sparkleEffect {
+  0%   { filter: brightness(1) drop-shadow(0 0 0px #fff); }
+  20%  { filter: brightness(1.3) drop-shadow(0 0 4px #fff); }
+  40%  { filter: brightness(1) drop-shadow(0 0 0px #fff); }
+  60%  { filter: brightness(1.2) drop-shadow(0 0 6px #ffddf4); }
+  80%  { filter: brightness(1) drop-shadow(0 0 0px #fff); }
+  100% { filter: brightness(1.3) drop-shadow(0 0 4px #fff); }
+}
+
+.sparkle {
+  animation: sparkleEffect 2s infinite ease-in-out;
+}
+
     
   </style>
 </head>
