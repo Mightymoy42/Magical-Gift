@@ -185,7 +185,25 @@
     opacity: 0;
   }
 }
+#birthday-card {
+  display: none;
+  text-align: center;
+  background-color: #fff0f5;
+  border: 3px solid #ffb6c1;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  margin: 20px auto;
+  max-width: 400px;
+  font-family: 'Comic Sans MS', cursive;
+  color: #a0522d;
+  animation: fadeIn 1s ease-in-out;
+}
 
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
   </style>
 </head>
 <body>
@@ -194,10 +212,11 @@
 
   <img id="gift" src="images/gift-box.png" alt="Gift Box" />
 
-  <div id="birthday-card">
-    <img src="images/birthday-card.png" alt="Birthday Card" style="width: 100%;" />
-    <p style="font-style: italic; color: #a0522d;">A magical gift for a magical girl 💖</p>
-  </div>
+  <div id="birthday-card" style="display: none;">
+  <h2>🎂 Happy Birthday Month!</h2>
+  <p>Let’s make every day a celebration! 💖</p>
+  <img src="images/card.png" alt="Birthday Card" style="max-width: 100%; border-radius: 12px;">
+</div>
 
   <div id="calendar"></div>
   
