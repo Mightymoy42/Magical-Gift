@@ -304,15 +304,23 @@ for (let i = 1; i <= 31; i++) {
 
 gift.addEventListener("click", () => {
   gift.classList.add("bounce-out");
-  birthdayCard.style.display = "block";
-  audio.volume = 0.5;
+  
+  // Start music
+  audio.volume = 0.3;
   audio.play().catch(e => console.log("Audio play error:", e));
+  
+  // After bounce animation (~1s), hide gift, show birthday card
   setTimeout(() => {
     gift.style.display = "none";
+    birthdayCard.style.display = "block";
+  }, 1100);
+  
+  // After showing card, show calendar a bit later (~1.5s after card visible)
+  setTimeout(() => {
     calendar.style.display = "block";
-  }, 3000);
+  }, 2600);
 });
-
+    
 function switchSong(newSrc) {
   audio.pause();
   audio.src = newSrc;
