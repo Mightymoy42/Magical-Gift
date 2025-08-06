@@ -326,14 +326,13 @@
     <option value="audio/Nintendo-Mii.mp3">Nintendo Mii Theme</option>
     <option value="audio/Fly-me-to-the-moon.mp3">Fly Me to the Moon</option>
   </select>
-<audio id="snippetAudio"></audio>
+
   <script>
 const gift = document.getElementById("gift");
 const audio = document.getElementById("bg-music");
 const calendar = document.getElementById("calendar");
 const birthdayCard = document.getElementById("birthday-card");
 const songSelector = document.getElementById("song-selector");
-const snippetAudio = document.getElementById("snippetAudio");
 
 // Reusable snippet audio element to avoid multiple simultaneous audios
 const snippetAudio = new Audio();
@@ -368,22 +367,18 @@ for (let i = 1; i <= 31; i++) {
   if (i <= currentDay) {
     day.classList.add("unlocked");
     day.addEventListener("click", () => {
-      console.log("Clicked day:", i);
+  showMessage(i); // shows the message and launches balloons
 
-      if (snippets[i]) {
-        console.log("Playing:", snippets[i]);
-        snippetAudio.pause();
-        snippetAudio.currentTime = 0;
-        snippetAudio.src = snippets[i];
-        snippetAudio.load();
-        snippetAudio.play().catch(e => {
-          console.error("Snippet play error:", e);
-          alert("Audio playback blocked. Tap screen or allow audio.");
-        });
-      } else {
-        console.warn("No snippet found for day", i);
-      }
-    });
+  // Pause the background music so snippet can play cleanly
+  audio.pause();
+
+  if (snippets[i]) {
+    snippetAudio.pause();
+    snippetAudio.currentTime = 0;
+    snippetAudio.src = snippets[i];
+    snippetAudio.play().catch(e => console.log("Snippet play error:", e));
+  }
+});
   } else {
     day.classList.add("locked");
   }
@@ -473,7 +468,7 @@ launchBalloons(); // 🎈 Launch balloons!
   for (let i = 0; i < 5; i++) {
     const balloon = document.createElement("div");
     balloon.className = "balloon";
-    balloon.style.left = `${Math.random() * 100}%`;  // <-- Fix here!
+    balloon.style.left = ${Math.random() * 100}%;  // <-- Fix here!
     balloon.style.backgroundColor = getRandomBalloonColor();
     document.body.appendChild(balloon);
 
@@ -484,6 +479,11 @@ launchBalloons(); // 🎈 Launch balloons!
 }
     function closeCard() {
   birthdayCard.style.display = "none";
+}
+
+function getRandomBalloonColor() {
+  const colors = ["#ff69b4", "#ffb6c1", "#ffd700", "#add8e6", "#98fb98"];
+  return colors[Math.floor(Math.random() * colors.length)];
 }
 
   </script>
