@@ -41,18 +41,20 @@
       width: 200px;
     }
     
+    /* UPDATED calendar styles */
     #calendar {
-  display: flex;
-  justify-content: center;
-  gap: 40px;  /* space between columns */
-  margin-top: 20px;
-}
+      display: flex;
+      justify-content: center;
+      gap: 40px; /* space between left and right columns */
+      margin-top: 20px;
+    }
 
-#calendar-left, #calendar-right {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+    #calendar-left, #calendar-right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     .day {
       display: inline-block;
       width: 60px;
@@ -101,186 +103,27 @@
       cursor: pointer;
     }
 
-    .star {
-      position: fixed;
-      top: -20px;
-      width: 15px;
-      height: 15px;
-      background: #fffacd; /* Light pastel yellow */
-      border-radius: 50%;
-      opacity: 1;
-      animation: fall linear infinite;
-      z-index: 1;
-      box-shadow: 0 0 8px 3px rgba(255, 250, 205, 0.8); /* soft glow */
-    }
-
-    @keyframes fall {
-      to {
-        transform: translateY(100vh);
-        opacity: 0;
-      }
-    }
+    /* ... rest of your CSS unchanged ... */
 
     /* 🎁 Message Popup Box */
     #day-message-box {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: linear-gradient(to bottom, #fff0f5, #ffe4ec);
-  border: 3px dashed #ff8fab;
-  border-radius: 20px;
-  padding: 40px 50px; /* increased padding */
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  z-index: 999;
-  display: none;
-  max-width: 450px; /* bigger width */
-  font-family: 'Comic Sans MS', cursive;
-  animation: popIn 0.4s ease-out;
-}
-
-#day-message-content {
-  font-size: 18px;
-  color: #a0522d;
-  margin-bottom: 18px;
-  white-space: pre-wrap;
-  text-shadow: 1px 1px #fff;
-}
-
-#day-message-box button {
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  background-color: #ffb6c1;
-  color: #fff;
-  font-weight: bold;
-  border-radius: 12px;
-  cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  transition: background-color 0.3s ease;
-}
-
-#day-message-box button:hover {
-  background-color: #ff8fab;
-  animation: buttonBounce 0.4s ease;
-}
-
-@keyframes buttonBounce {
-  0%   { transform: scale(1); }
-  30%  { transform: scale(1.15); }
-  100% { transform: scale(1); }
-}
-.balloon {
-  position: fixed;
-  bottom: -60px;
-  width: 30px;
-  height: 40px;
-  background-color: pink;
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  animation: floatUp 4s ease-out forwards;
-  z-index: 1000;
-  opacity: 0.9;
-}
-
-@keyframes floatUp {
-  0% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 0.9;
-  }
-  100% {
-    transform: translateY(-120vh) rotate(360deg);
-    opacity: 0;
-  }
-}
-#birthday-card {
-  display: none;
-  text-align: center;
-  background-color: #fff0f5;
-  border: 3px solid #ffb6c1;
-  padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  margin: 20px auto;
-  max-width: 400px;
-  font-family: 'Comic Sans MS', cursive;
-  color: #a0522d;
-  animation: fadeIn 1s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
-}
- .flip-card-container {
-      perspective: 1000px;
-      width: 300px;
-      height: 200px;
-      margin: 0 auto;
-    }
-
-    .flip-card {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      transform-style: preserve-3d;
-      transition: transform 0.8s;
-      cursor: pointer;
-    }
-
-    .flip-card-front, .flip-card-back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-      text-align: center;
-      background-color: #fff0f5;
-      border: 2px solid #ffb6c1;
-      border-radius: 12px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      box-sizing: border-box;
-      font-family: 'Comic Sans MS', cursive;
-      color: #a0522d;
-    }
-
-    .flip-card-front img {
-      max-width: 80%;
-      border-radius: 12px;
-    }
-
-    .flip-card-back {
-      transform: rotateX(180deg);
-    }
-
-    .flip-card.flipped {
-      transform: rotateX(180deg);
-    }
-
- /* Sticker + Sparkle */
- .sticker {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 100px;
-      height: auto;
-      z-index: 1000;
-      pointer-events: none;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(to bottom, #fff0f5, #ffe4ec);
+      border: 3px dashed #ff8fab;
+      border-radius: 20px;
+      padding: 40px 50px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      z-index: 999;
+      display: none;
+      max-width: 450px;
+      font-family: 'Comic Sans MS', cursive;
+      animation: popIn 0.4s ease-out;
     }
 
-    @keyframes sparkleEffect {
-      0%   { filter: brightness(1) drop-shadow(0 0 0px #fff); }
-      20%  { filter: brightness(1.3) drop-shadow(0 0 4px #fff); }
-      40%  { filter: brightness(1) drop-shadow(0 0 0px #fff); }
-      60%  { filter: brightness(1.2) drop-shadow(0 0 6px #ffddf4); }
-      80%  { filter: brightness(1) drop-shadow(0 0 0px #fff); }
-      100% { filter: brightness(1.3) drop-shadow(0 0 4px #fff); }
-    }
-
-    .sparkle {
-      animation: sparkleEffect 2s infinite ease-in-out;
-    }
+    /* ... rest of your CSS unchanged ... */
   </style>
 </head>
 <body>
@@ -290,22 +133,23 @@
   <img id="gift" src="images/gift-box.png" alt="Gift Box" />
 
   <div id="birthday-card" style="display: none;">
-  <h2>🎂 Happy Birthday Magical Princess!</h2>
-  <p>A magical gift for a magical girl! 💖</p>
-  <img src="images/card.jpg" alt="Birthday Card" style="max-width: 100%; border-radius: 12px;">
-</div>
+    <h2>🎂 Happy Birthday Magical Princess!</h2>
+    <p>A magical gift for a magical girl! 💖</p>
+    <img src="images/card.jpg" alt="Birthday Card" style="max-width: 100%; border-radius: 12px;">
+  </div>
 
-  <div id="calendar">
-  <div id="calendar-left"></div>
-  <div id="calendar-right"></div>
-</div>
+  <!-- UPDATED calendar with two columns -->
+  <div id="calendar" style="display:none;">
+    <div id="calendar-left"></div>
+    <div id="calendar-right"></div>
+  </div>
 
-  
   <div id="day-message-box">
-  <div id="day-message-content"></div>
-  <button onclick="closeMessage()">Close</button>
-</div>
-    <!-- Your flip card -->
+    <div id="day-message-content"></div>
+    <button onclick="closeMessage()">Close</button>
+  </div>
+
+  <!-- Your flip card -->
   <div class="flip-card-container">
     <div class="flip-card" onclick="this.classList.toggle('flipped')">
       <div class="flip-card-front">
@@ -338,111 +182,110 @@
   </select>
 
   <script>
-const gift = document.getElementById("gift");
-const audio = document.getElementById("bg-music");
-const calendar = document.getElementById("calendar");
-const birthdayCard = document.getElementById("birthday-card");
-const songSelector = document.getElementById("song-selector");
+    const gift = document.getElementById("gift");
+    const audio = document.getElementById("bg-music");
+    const calendar = document.getElementById("calendar");
+    const birthdayCard = document.getElementById("birthday-card");
+    const songSelector = document.getElementById("song-selector");
+    const calendarLeft = document.getElementById("calendar-left");
+    const calendarRight = document.getElementById("calendar-right");
 
-// Reusable snippet audio element to avoid multiple simultaneous audios
-const snippetAudio = new Audio();
-snippetAudio.volume = 0.7;
+    // Reusable snippet audio element to avoid multiple simultaneous audios
+    const snippetAudio = new Audio();
+    snippetAudio.volume = 0.7;
 
-const messages = {
-  1: "Your radiant personality shines through like the moonlight at night 🌙",
-  2: "Your smile is magical ✨",
-  3: "You deserve all the happiness 💖",
-  4: "You're doing amazing 💪",
-  5: "Never forget how special you are 🌟",
-  // Add more up to 31
-};
+    const messages = {
+      1: "Your radiant personality shines through like the moonlight at night 🌙",
+      2: "Your smile is magical ✨",
+      3: "You deserve all the happiness 💖",
+      4: "You're doing amazing 💪",
+      5: "Never forget how special you are 🌟",
+      // Add more up to 31
+    };
 
-const snippets = {
-  1: "audio/snippet1.mp3",
-  2: "audio/snippet2.mp3",
-  3: "audio/snippet3.mp3",
-  4: "audio/snippet4.mp3",
-  5: "audio/snippet5.mp3",
-  // Add more if needed
-};
+    const snippets = {
+      1: "audio/snippet1.mp3",
+      2: "audio/snippet2.mp3",
+      3: "audio/snippet3.mp3",
+      4: "audio/snippet4.mp3",
+      5: "audio/snippet5.mp3",
+      // Add more if needed
+    };
 
-const calendarLeft = document.getElementById("calendar-left");
-const calendarRight = document.getElementById("calendar-right");
+    const today = new Date();
+    const currentDay = today.getDate();
 
-for (let i = 1; i <= 31; i++) {
-  const day = document.createElement("div");
-  day.classList.add("day");
-  day.textContent = i;
+    for (let i = 1; i <= 31; i++) {
+      const day = document.createElement("div");
+      day.classList.add("day");
+      day.textContent = i;
 
-  if (i <= currentDay) {
-    day.classList.add("unlocked");
-    day.addEventListener("click", () => {
-      showMessage(i);
-      audio.pause();
+      if (i <= currentDay) {
+        day.classList.add("unlocked");
+        day.addEventListener("click", () => {
+          showMessage(i);
 
-      if (snippets[i]) {
-        snippetAudio.pause();
-        snippetAudio.currentTime = 0;
-        snippetAudio.src = snippets[i];
-        snippetAudio.play().catch(e => console.log("Snippet play error:", e));
+          audio.pause();
+
+          if (snippets[i]) {
+            snippetAudio.pause();
+            snippetAudio.currentTime = 0;
+            snippetAudio.src = snippets[i];
+            snippetAudio.play().catch(e => console.log("Snippet play error:", e));
+          }
+        });
+      } else {
+        day.classList.add("locked");
       }
+
+      if (i <= 15) {
+        calendarLeft.appendChild(day);
+      } else {
+        calendarRight.appendChild(day);
+      }
+    }
+
+    gift.addEventListener("click", () => {
+      gift.classList.add("bounce-out");
+
+      audio.volume = 0.3;
+      audio.play().catch(e => console.log("Audio play error:", e));
+
+      setTimeout(() => {
+        gift.style.display = "none";
+        birthdayCard.style.display = "block";
+      }, 1100);
+
+      setTimeout(() => {
+        calendar.style.display = "flex"; // show calendar as flex container
+      }, 2600);
     });
-  } else {
-    day.classList.add("locked");
-  }
 
-  if (i <= 15) {
-    calendarLeft.appendChild(day);
-  } else {
-    calendarRight.appendChild(day);
-  }
-}
+    function switchSong(newSrc) {
+      audio.pause();
+      audio.src = newSrc;
+      audio.load();
+      audio.play().catch(e => console.log("Autoplay blocked or error:", e));
+    }
 
-gift.addEventListener("click", () => {
-  gift.classList.add("bounce-out");
-  
-  // Start music
-  audio.volume = 0.3;
-  audio.play().catch(e => console.log("Audio play error:", e));
-  
-  // After bounce animation (~1s), hide gift, show birthday card
-  setTimeout(() => {
-    gift.style.display = "none";
-    birthdayCard.style.display = "block";
-  }, 1100);
-  
-  // After showing card, show calendar a bit later (~1.5s after card visible)
-  setTimeout(() => {
-    calendar.style.display = "block";
-  }, 2600);
-});
-    
-function switchSong(newSrc) {
-  audio.pause();
-  audio.src = newSrc;
-  audio.load();
-  audio.play().catch(e => console.log("Autoplay blocked or error:", e));
-}
+    songSelector.addEventListener("change", () => {
+      switchSong(songSelector.value);
+    });
 
-songSelector.addEventListener("change", () => {
-  switchSong(songSelector.value);
-});
+    function togglePlay() {
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    }
 
-function togglePlay() {
-  if (audio.paused) {
-    audio.play();
-  } else {
-    audio.pause();
-  }
-}
-
-function changeVolume(amount) {
-  let newVolume = audio.volume + amount;
-  newVolume = Math.min(1, Math.max(0, newVolume));
-  audio.volume = newVolume;
-  console.log("Volume:", Math.round(newVolume * 100) + "%");
-}
-
+    function changeVolume(amount) {
+      let newVolume = audio.volume + amount;
+      newVolume = Math.min(1, Math.max(0, newVolume));
+      audio.volume = newVolume;
+      console.log("Volume:", Math.round(newVolume * 100) + "%");
+    }
 
     function createStar() {
       const star = document.createElement('div');
@@ -451,52 +294,50 @@ function changeVolume(amount) {
       star.style.animationDuration = 4 + Math.random() * 4 + "s";
       star.style.opacity = Math.random() * 0.5 + 0.5;
       document.body.appendChild(star);
-      
+
       setTimeout(() => {
-    star.remove();
-  }, 8000); // adjust cleanup to match animation duration
-}
+        star.remove();
+      }, 8000);
+    }
 
-setInterval(createStar, 300);
-    
+    setInterval(createStar, 300);
+
     function closeMessage() {
-  document.getElementById('day-message-box').style.display = 'none';
-  snippetAudio.pause();
-  snippetAudio.currentTime = 0;
-}
+      document.getElementById('day-message-box').style.display = 'none';
+      snippetAudio.pause();
+      snippetAudio.currentTime = 0;
+    }
+
     function showMessage(day) {
-  const box = document.getElementById("day-message-box");
-  const content = document.getElementById("day-message-content");
+      const box = document.getElementById("day-message-box");
+      const content = document.getElementById("day-message-content");
 
- content.textContent = messages[day] || "No message found.";
-  box.style.display = "block";
-  box.style.animation = "none";
-void box.offsetWidth; // force reflow
-box.style.animation = "popIn 0.4s ease-out";
-launchBalloons(); // 🎈 Launch balloons!
-}
+      content.textContent = messages[day] || "No message found.";
+      box.style.display = "block";
+      box.style.animation = "none";
+      void box.offsetWidth; // force reflow
+      box.style.animation = "popIn 0.4s ease-out";
+      launchBalloons();
+    }
+
     function launchBalloons() {
-  for (let i = 0; i < 5; i++) {
-    const balloon = document.createElement("div");
-    balloon.className = "balloon";
-    balloon.style.left = `${Math.random() * 100}%`;  // <-- Fix here!
-    balloon.style.backgroundColor = getRandomBalloonColor();
-    document.body.appendChild(balloon);
+      for (let i = 0; i < 5; i++) {
+        const balloon = document.createElement("div");
+        balloon.className = "balloon";
+        balloon.style.left = `${Math.random() * 100}%`;
+        balloon.style.backgroundColor = getRandomBalloonColor();
+        document.body.appendChild(balloon);
 
-    setTimeout(() => {
-      balloon.remove();
-    }, 4000);
-  }
-}
-    function closeCard() {
-  birthdayCard.style.display = "none";
-}
+        setTimeout(() => {
+          balloon.remove();
+        }, 4000);
+      }
+    }
 
-function getRandomBalloonColor() {
-  const colors = ["#ff69b4", "#ffb6c1", "#ffd700", "#add8e6", "#98fb98"];
-  return colors[Math.floor(Math.random() * colors.length)];
-}
-
+    function getRandomBalloonColor() {
+      const colors = ["#ff69b4", "#ffb6c1", "#ffd700", "#add8e6", "#98fb98"];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
   </script>
 </body>
 </html>
