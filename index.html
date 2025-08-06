@@ -42,10 +42,17 @@
     }
     
     #calendar {
-      display: none;
-      margin-top: 20px;
-    }
+  display: flex;
+  justify-content: center;
+  gap: 40px;  /* space between columns */
+  margin-top: 20px;
+}
 
+#calendar-left, #calendar-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
     .day {
       display: inline-block;
       width: 60px;
@@ -288,7 +295,10 @@
   <img src="images/card.jpg" alt="Birthday Card" style="max-width: 100%; border-radius: 12px;">
 </div>
 
-  <div id="calendar"></div>
+  <div id="calendar">
+  <div id="calendar-left"></div>
+  <div id="calendar-right"></div>
+</div>
 
   
   <div id="day-message-box">
@@ -356,8 +366,8 @@ const snippets = {
   // Add more if needed
 };
 
-const today = new Date();
-const currentDay = today.getDate();
+const calendarLeft = document.getElementById("calendar-left");
+const calendarRight = document.getElementById("calendar-right");
 
 for (let i = 1; i <= 31; i++) {
   const day = document.createElement("div");
@@ -367,25 +377,26 @@ for (let i = 1; i <= 31; i++) {
   if (i <= currentDay) {
     day.classList.add("unlocked");
     day.addEventListener("click", () => {
-  showMessage(i); // shows the message and launches balloons
+      showMessage(i);
+      audio.pause();
 
-  // Pause the background music so snippet can play cleanly
-  audio.pause();
-
-  if (snippets[i]) {
-    snippetAudio.pause();
-    snippetAudio.currentTime = 0;
-    snippetAudio.src = snippets[i];
-    snippetAudio.play().catch(e => console.log("Snippet play error:", e));
-  }
-});
+      if (snippets[i]) {
+        snippetAudio.pause();
+        snippetAudio.currentTime = 0;
+        snippetAudio.src = snippets[i];
+        snippetAudio.play().catch(e => console.log("Snippet play error:", e));
+      }
+    });
   } else {
     day.classList.add("locked");
   }
 
-  calendar.appendChild(day);
+  if (i <= 15) {
+    calendarLeft.appendChild(day);
+  } else {
+    calendarRight.appendChild(day);
+  }
 }
-
 
 gift.addEventListener("click", () => {
   gift.classList.add("bounce-out");
