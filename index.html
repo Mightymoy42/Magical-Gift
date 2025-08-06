@@ -370,19 +370,19 @@ for (let i = 1; i <= 31; i++) {
       showMessage(i); // shows the message and launches balloons
       audio.pause();
 
-      if (snippets[i - 1]) {
-        snippetAudio.pause();
-        snippetAudio.currentTime = 0;
-        snippetAudio.src = snippets[i - 1];
-        snippetAudio.load();
+if (snippets[i]) {
+  snippetAudio.pause();
+  snippetAudio.currentTime = 0;
+  snippetAudio.src = snippets[i];
+  snippetAudio.load();
 
-        snippetAudio.play().catch(e => {
-          console.error("Snippet play error:", e);
-          alert("Audio playback blocked. Tap screen or allow audio.");
-        });
-      } else {
-        console.warn("No snippet audio found for day", i);
-      }
+  snippetAudio.play().catch(e => {
+    console.error("Snippet play error:", e);
+    alert("Audio playback blocked. Tap the screen or allow audio.");
+  });
+} else {
+  console.warn("No snippet audio found for day", i);
+}
     });
   } else {
     day.classList.add("locked");
