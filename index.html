@@ -326,13 +326,14 @@
     <option value="audio/Nintendo-Mii.mp3">Nintendo Mii Theme</option>
     <option value="audio/Fly-me-to-the-moon.mp3">Fly Me to the Moon</option>
   </select>
-
+<audio id="snippetAudio"></audio>
   <script>
 const gift = document.getElementById("gift");
 const audio = document.getElementById("bg-music");
 const calendar = document.getElementById("calendar");
 const birthdayCard = document.getElementById("birthday-card");
 const songSelector = document.getElementById("song-selector");
+const snippetAudio = document.getElementById("snippetAudio");
 
 // Reusable snippet audio element to avoid multiple simultaneous audios
 const snippetAudio = new Audio();
@@ -367,22 +368,21 @@ for (let i = 1; i <= 31; i++) {
   if (i <= currentDay) {
     day.classList.add("unlocked");
     day.addEventListener("click", () => {
-      showMessage(i); // shows the message and launches balloons
-      audio.pause();
+      console.log("Clicked day:", i);
 
-if (snippets[i]) {
-  snippetAudio.pause();
-  snippetAudio.currentTime = 0;
-  snippetAudio.src = snippets[i];
-  snippetAudio.load();
-
-  snippetAudio.play().catch(e => {
-    console.error("Snippet play error:", e);
-    alert("Audio playback blocked. Tap the screen or allow audio.");
-  });
-} else {
-  console.warn("No snippet audio found for day", i);
-}
+      if (snippets[i]) {
+        console.log("Playing:", snippets[i]);
+        snippetAudio.pause();
+        snippetAudio.currentTime = 0;
+        snippetAudio.src = snippets[i];
+        snippetAudio.load();
+        snippetAudio.play().catch(e => {
+          console.error("Snippet play error:", e);
+          alert("Audio playback blocked. Tap screen or allow audio.");
+        });
+      } else {
+        console.warn("No snippet found for day", i);
+      }
     });
   } else {
     day.classList.add("locked");
