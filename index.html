@@ -182,14 +182,15 @@
   </select>
 
   <script>
-    const gift = document.getElementById("gift");
-    const audio = document.getElementById("bg-music");
-    const calendar = document.getElementById("calendar");
-    const birthdayCard = document.getElementById("birthday-card");
-    const songSelector = document.getElementById("song-selector");
-    const calendarLeft = document.getElementById("calendar-left");
-    const calendarRight = document.getElementById("calendar-right");
-
+document.addEventListener("DOMContentLoaded", () => {
+  const gift = document.getElementById("gift");
+  const audio = document.getElementById("bg-music");
+  const calendar = document.getElementById("calendar");
+  const birthdayCard = document.getElementById("birthday-card");
+  const songSelector = document.getElementById("song-selector");
+  const calendarLeft = document.getElementById("calendar-left");
+  const calendarRight = document.getElementById("calendar-right");
+  
     // Reusable snippet audio element to avoid multiple simultaneous audios
     const snippetAudio = new Audio();
     snippetAudio.volume = 0.7;
@@ -246,20 +247,20 @@
     }
 
     gift.addEventListener("click", () => {
-      gift.classList.add("bounce-out");
+    gift.classList.add("bounce-out");
 
-      audio.volume = 0.3;
-      audio.play().catch(e => console.log("Audio play error:", e));
+    audio.volume = 0.3;
+    audio.play().catch(e => console.log("Audio play error:", e));
 
-      setTimeout(() => {
-        gift.style.display = "none";
-        birthdayCard.style.display = "block";
-      }, 1100);
+    setTimeout(() => {
+      gift.style.display = "none";
+      birthdayCard.style.display = "block";
+    }, 1100);
 
-      setTimeout(() => {
-        calendar.style.display = "flex"; // show calendar as flex container
-      }, 2600);
-    });
+    setTimeout(() => {
+      calendar.style.display = "flex";
+    }, 2600);
+  });
 
     function switchSong(newSrc) {
       audio.pause();
