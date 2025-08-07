@@ -369,7 +369,7 @@ const messages = {
   24: "Never forget how special you are 🌟",
   25: "Never forget how special you are 🌟",
   26: "Never forget how special you are 🌟",
-  27: "Happy birthday magical princess!! You’ve been a muse, a light, a quiet kind of wonder and every moment with you has felt like a slow dance under the stars, I hope today, you feel it in every corner of your heart how special you truly are 💫🎁💐",
+  27: "Happy birthday magical princess!! You’ve been a muse, a light, a quiet kind of wonder and every moment with you has felt like a slow dance under the stars, I hope today, you feel it in every corner of your heart how special you are 💫🎁💐",
   28: "The way you exist makes love feel like a language I want to learn 📝❤️",
   29: "Never forget how special you are 🌟",
   30: "Never forget how special you are 🌟",
@@ -420,22 +420,24 @@ for (let i = 1; i <= 31; i++) {
   day.classList.add("day");
   day.textContent = i;
 
-  // Make every day unlocked and clickable
-  day.classList.add("unlocked");
+  if (i <= currentDay) {
+    day.classList.add("unlocked");
+    day.addEventListener("click", () => {
+  showMessage(i); // shows the message and launches balloons
 
-  day.addEventListener("click", () => {
-    showMessage(i); // shows the message and launches balloons
+  // Pause the background music so snippet can play cleanly
+  audio.pause();
 
-    // Pause the background music so snippet can play cleanly
-    audio.pause();
-
-    if (snippets[i]) {
-      snippetAudio.pause();
-      snippetAudio.currentTime = 0;
-      snippetAudio.src = snippets[i];
-      snippetAudio.play().catch(e => console.log("Snippet play error:", e));
-    }
-  });
+  if (snippets[i]) {
+    snippetAudio.pause();
+    snippetAudio.currentTime = 0;
+    snippetAudio.src = snippets[i];
+    snippetAudio.play().catch(e => console.log("Snippet play error:", e));
+  }
+});
+  } else {
+    day.classList.add("locked");
+  }
 
   calendar.appendChild(day);
 }
@@ -522,7 +524,7 @@ launchBalloons(); // 🎈 Launch balloons!
   for (let i = 0; i < 5; i++) {
     const balloon = document.createElement("div");
     balloon.className = "balloon";
-    balloon.style.left = `${Math.random() * 100}%`;  // <-- Fix here!
+    balloon.style.left = ${Math.random() * 100}%;  // <-- Fix here!
     balloon.style.backgroundColor = getRandomBalloonColor();
     document.body.appendChild(balloon);
 
