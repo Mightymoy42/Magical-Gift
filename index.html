@@ -420,24 +420,22 @@ for (let i = 1; i <= 31; i++) {
   day.classList.add("day");
   day.textContent = i;
 
-  if (i <= currentDay) {
-    day.classList.add("unlocked");
-    day.addEventListener("click", () => {
-  showMessage(i); // shows the message and launches balloons
+  // Make every day unlocked and clickable
+  day.classList.add("unlocked");
 
-  // Pause the background music so snippet can play cleanly
-  audio.pause();
+  day.addEventListener("click", () => {
+    showMessage(i); // shows the message and launches balloons
 
-  if (snippets[i]) {
-    snippetAudio.pause();
-    snippetAudio.currentTime = 0;
-    snippetAudio.src = snippets[i];
-    snippetAudio.play().catch(e => console.log("Snippet play error:", e));
-  }
-});
-  } else {
-    day.classList.add("locked");
-  }
+    // Pause the background music so snippet can play cleanly
+    audio.pause();
+
+    if (snippets[i]) {
+      snippetAudio.pause();
+      snippetAudio.currentTime = 0;
+      snippetAudio.src = snippets[i];
+      snippetAudio.play().catch(e => console.log("Snippet play error:", e));
+    }
+  });
 
   calendar.appendChild(day);
 }
