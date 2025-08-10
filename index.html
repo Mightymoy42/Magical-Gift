@@ -483,6 +483,21 @@ const snippets = {
   // Add more if needed
 };
 
+    noteBar.addEventListener('click', () => {
+  noteModal.style.display = 'flex';
+});
+
+closeNoteBtn.addEventListener('click', () => {
+  noteModal.style.display = 'none';
+});
+
+// Optional: close modal if clicking outside the content box
+noteModal.addEventListener('click', (e) => {
+  if (e.target === noteModal) {
+    noteModal.style.display = 'none';
+  }
+});
+    
 const today = new Date();
 const currentDay = today.getDate();
 
@@ -544,20 +559,6 @@ songSelector.addEventListener("change", () => {
   switchSong(songSelector.value);
 });
     
-noteBar.addEventListener('click', () => {
-  noteModal.style.display = 'flex';
-});
-
-closeNoteBtn.addEventListener('click', () => {
-  noteModal.style.display = 'none';
-});
-
-// Optional: close modal if clicking outside the content box
-noteModal.addEventListener('click', (e) => {
-  if (e.target === noteModal) {
-    noteModal.style.display = 'none';
-  }
-});
 
 function togglePlay() {
   if (audio.paused) {
