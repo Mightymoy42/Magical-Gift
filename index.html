@@ -310,6 +310,36 @@
       </div>
     </div>
   </div>
+  
+  <!-- Like bar container -->
+<div id="like-bar" style="margin-top: 30px;">
+  <button id="like-button" style="
+    font-size: 24px; 
+    background: transparent; 
+    border: none; 
+    cursor: pointer; 
+    color: #ff4081;
+    transition: transform 0.2s;
+  ">❤️</button>
+  <span id="like-count" style="font-size: 20px; margin-left: 10px; color: #a0522d;">0</span> Likes
+</div>
+
+<!-- Popup note -->
+<div id="like-popup" style="
+  display: none;
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffb6c1;
+  padding: 12px 24px;
+  border-radius: 20px;
+  color: white;
+  font-family: 'Pacifico', cursive;
+  box-shadow: 0 4px 12px rgba(255, 69, 150, 0.6);
+  z-index: 10000;
+  user-select: none;
+"></div>
 
   <!-- Axolotl sticker -->
   <img src="images/axolotl.png" class="sticker" alt="Axolotl Sticker">
@@ -336,6 +366,9 @@ const audio = document.getElementById("bg-music");
 const calendar = document.getElementById("calendar");
 const birthdayCard = document.getElementById("birthday-card");
 const songSelector = document.getElementById("song-selector");
+const likeButton = document.getElementById('like-button');
+const likeCount = document.getElementById('like-count');
+const likePopup = document.getElementById('like-popup');
 
 // Reusable snippet audio element to avoid multiple simultaneous audios
 const snippetAudio = new Audio();
@@ -541,6 +574,27 @@ function getRandomBalloonColor() {
   return colors[Math.floor(Math.random() * colors.length)];
 }
 
+    let likes = 0;
+
+likeButton.addEventListener('click', () => {
+  likes++;
+  likeCount.textContent = likes;
+
+  // Show popup note
+  likePopup.textContent = "Thanks for the love! 💖";
+  likePopup.style.display = 'block';
+
+  // Hide popup after 2 seconds
+  setTimeout(() => {
+    likePopup.style.display = 'none';
+  }, 2000);
+
+  // Add a quick scale animation on the button
+  likeButton.style.transform = 'scale(1.3)';
+  setTimeout(() => {
+    likeButton.style.transform = 'scale(1)';
+  }, 200);
+});
   </script>
 </body>
 </html>
