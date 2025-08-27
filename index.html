@@ -630,5 +630,29 @@ function getRandomBalloonColor() {
 
 
   </script>
+  
+  <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyAqBJH7R9qWx658LB1Fqmf5x0JqhGpGhFM",
+    authDomain: "website-8a0ec.firebaseapp.com",
+    projectId: "website-8a0ec",
+    storageBucket: "website-8a0ec.firebasestorage.app",
+    messagingSenderId: "165564690583",
+    appId: "1:165564690583:web:d382ed33cdc6f36d9079d2",
+    measurementId: "G-77K5GTMJ7Y"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
 </body>
 </html>
